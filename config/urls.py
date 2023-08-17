@@ -40,7 +40,7 @@ urlpatterns = [
 ]
 
 #오류 발생 시 호출
-# handler400 = 'common.views.error400'
-# handler403 = 'common.views.error403'
-# handler404 = 'common.views.error404'
-# handler500 = 'common.views.error500'
+handler400 = 'common.views.error400'
+handler403 = 'common.views.error403'
+handler404 = 'common.views.error404'
+handler500 = 'common.views.error500'
