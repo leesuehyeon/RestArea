@@ -16,11 +16,11 @@ def signup(request):
         form = UserForm()
     return render(request, 'common/signup.html', {'form': form})
 
-def error400(request, exception=None):
-    return render(request, 'common/400.html', {})
-def error403(request, exception=None):
-    return render(request, 'common/403.html', {})
-def error404(request, exception=None):
-    return render(request, 'common/404.html', {})
-def error500(request, exception=None):
-    return render(request, 'common/500.html', {})
+# def error400(request, exception=None):
+#     return render(request, 'common/400.html', {})
+# def error403(request, exception=None):
+#     return render(request, 'common/403.html', {})
+# def error404(request, exception=None):
+#     return render(request, 'common/404.html', {})
+# def error500(request, exception=None):
+#     return render(request, 'common/500.html', {})
