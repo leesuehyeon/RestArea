@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% block content %}
+<html lang="ko">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Modern Business - Start Bootstrap Template</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Bootstrap icons-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+    </head>
+    <body class="d-flex flex-column">
+        <main class="flex-shrink-0">
+
+            <!-- Page Content-->
+            <section class="py-5">
+                <div class="container px-5 my-5">
+                    <div class="row gx-5">
+                        <div class="col-lg-3">
+                            <div class="d-flex align-items-center mt-lg-5 mb-4">
+                                <!--추천 버튼-->
+                                <a href="javascript:void(0)" data-uri="{% url 'info:vote' info.id %}"
+                                    class="recommend btn btn-sm btn-outline-secondary"> 추천
+                                    <span class="badge rounded-pill bg-success">{{info.voter.count}}</span>
+                                </a>
+                                <div class="ms-3">
+                                    <div class="text-muted">추천 버튼을</div>
+                                    <div class="text-muted">눌러주세요</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-9">
+                            <!-- Post content-->
+                            <article>
+                                <!-- Post header-->
+                                <header class="mb-4">
+                                    <!--쉼터 제목-->
+                                    <h1 class="fw-bolder mb-1">{{ info.restinfo }}</h1>
+                                    <!--쉼터 정보-->
+                                    <div class="text-muted fst-italic mb-2">{{ info.restinfo }}에 오신 것을 환영합니다.</div>
+                                    <!--실내/실외 여부-->
+                                    <a class="badge bg-secondary text-decoration-none link-light">{{ info.restplace }}</a>
+                                    <!--수용 가능 인원-->
+                                    <a class="badge bg-secondary text-decoration-none link-light">수용 가능 인원: {{ info.restpeople }}</a>
+                                    <!-- Post categories-->
+                                </header>
+
+                                <div class="row my-3">
+                                    <!--쉼터 이미지-->
+                                    {% for photo in info.photo_set.all %}
+                                        <div class="col-6">
+                                            <figure class="mb-4">
+                                                <img class="rounded" src="{{ photo.image.url }}" alt="..." width="450" height="300"/>
+                                            </figure>
+                                        </div>
+                                    {% endfor%}
+                                </div>
+
+                                <!-- Post content-->
+                                <section class="mb-5">
+                                    <div class="card bg-light">
+                                        <div class="card-body">
+                                            <h5 class="fw-bolder mb-4 mt-5">안녕하세요, {{ info.restinfo }}입니다. 자세한 정보는 아래를 확인해주세요.</h5>
+                                            <h5 class="fw-bolder mb-4 mt-5">다른 사용자에게 {{ info.restinfo }}를 추천하고 싶으시다면 왼쪽 상단의 추천 버튼을 눌러주세요.</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <h5 class="fw-bolder mb-4 mt-5">1. 쉼터 위치</h5>
+                                            <h5 class="fw mb-4 mt-5">쉼터 위치는 {{ info.content }}입니다.</h5>
+                                        </div>
+
+                                        <div class="card-body">
+                                            <h5 class="fw-bolder mb-4 mt-5">2. 실내외 정보</h5>
+                                            <h5 class="fw mb-4 mt-5">{{ info.restplace }}입니다.</h5>
+                                        </div>
+
+                                        <div class="card-body">
+                                            <h5 class="fw-bolder mb-4 mt-5">3. 최대 수용 인원</h5>
+                                            <h5 class="fw mb-4 mt-5">쉼터 최대 수용 인원은 {{ info.restpeople }}입니다.</h5>
+                                        </div>
+
+                                        <div class="card-body">
+                                            <h5 class="fw-bolder mb-4 mt-5">4. 편의 시설 및 응급물품 구비</h5>
+                                            <h5 class="fw mb-4 mt-5">{{ info.restother }} 등이 배치되어 있습니다.</h5>
+                                        </div>
+                                    </div>
+                                </section>
+                            </article>
+
+                            <!--쉼터 리뷰 버튼-->
+                            <div class="row my-3">
+                                <div class="col-6">
+                                    <a href="{% url 'review:index' %}" class="btn btn-primary">작성된 리뷰 보러가기</a>
+                                </div>
+                                <div class="col-6">
+                                    <a href="{% url 'review:create' %}" class="btn btn-primary">새로운 리뷰 작성하기</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+    </body>
+</html>
+{% endblock %}
+
+<!--추천 버튼-->
+{% block script %}
+<script type='text/javascript'>
+const recommend_elements = document.getElementsByClassName("recommend");
+Array.from(recommend_elements).forEach(function(element) {
+    element.addEventListener('click', function() {
+        if(confirm("추천하시겠습니까?")) {
+            location.href = this.dataset.uri;
+        };
+    });
+});
+</script>
+{% endblock %}

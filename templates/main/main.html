@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% block content %}
+<html lang="ko">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Modern Business - Start Bootstrap Template</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Bootstrap icons-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+    </head>
+    <body class="d-flex flex-column h-100">
+        <main class="flex-shrink-0">
+            <!-- 지도 화면 -->
+            <header class="bg-dark py-5">
+                <div class="container px-5">
+                    <div class="row gx-5 align-items-center justify-content-center">
+                        <div class="col-lg-8 col-xl-7 col-xxl-6">
+                            <div class="my-5 text-center text-xl-start">
+                                <h1 class="display-5 fw-bolder text-white mb-2">내 위치 주변 무더위 쉼터 찾아보기</h1>
+                                <p class="lead fw-normal text-white-50 mb-4">지도를 통해 내 위치 주변에 있는 무더위 쉼터 목록을 확인할 수 있습니다.</p>
+                                <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
+                                    <a class="btn btn-outline-light btn-lg px-4" href="/map/">지도 페이지로 이동</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!--지도 이미지 넣기-->
+                        <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center">
+                            <img class="img-fluid rounded-3 my-5" src="media/mapImage.jpg" alt="..." />
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- 기능별 설명 -->
+            <section class="py-5" id="features">
+                <div class="container px-5 my-5">
+                    <div class="row gx-5">
+                        <div class="col-lg-4 mb-5 mb-lg-0">
+                            <h1 class="fw-bolder mb-0">무더위 쉼터</h1>
+                            <h1 class="fw-bolder mb-0">정보 제공 서비스</h1>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="row gx-5 row-cols-1 row-cols-md-2">
+                                <div class="col mb-5 h-100">
+                                    <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-person-check"></i></div>
+                                    <h5 class="fw-bolder mb-0">로그인</h5>
+                                    <p class="mb-0">회원이시다면 로그인 후 사용해주세요.</p>
+                                    <a class="btn btn-outline-dark btn-lg px-4" href="{% url 'common:login' %}">로그인 페이지로 이동</a>
+                                </div>
+                                <div class="col mb-5 h-100">
+                                    <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-person-plus"></i></div>
+                                    <h5 class="fw-bolder mb-0">회원가입</h5>
+                                    <p class="mb-0">회원이 아니시다면 회원가입 후 사용해주세요.</p>
+                                    <a class="btn btn-outline-dark btn-lg px-4" href="{% url 'common:signup' %}">회원가입 페이지로 이동</a>
+                                </div>
+                                <div class="col mb-5 h-100">
+                                    <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-info-circle"></i></div>
+                                    <h5 class="fw-bolder mb-0">쉼터 정보</h5>
+                                    <p class="mb-0">전국에 있는 무더위 쉼터 정보를 확인하고, 무더위 쉼터를 검색할 수 있습니다.</p>
+                                    <a class="btn btn-outline-dark btn-lg px-4" href="{% url 'info:index' %}">쉼터 정보 페이지로 이동</a>
+                                </div>
+                                <div class="col mb-5 h-100">
+                                    <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-info-square"></i></div>
+                                    <h5 class="fw-bolder mb-0">쉼터 리뷰</h5>
+                                    <p class="mb-0">무더위 쉼터를 방문한 사용자가 남긴 리뷰를 확인하고, 리뷰를 작성할 수 있습니다.</p>
+                                    <a class="btn btn-outline-dark btn-lg px-4" href="{% url 'review:index' %}">쉼터 리뷰 페이지로 이동</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Testimonial section-->
+            <div class="py-5 bg-dark">
+                <div class="container px-5 my-5">
+                    <div class="row gx-5 justify-content-center">
+                        <div class="col-lg-10 col-xl-7">
+                            <div class="text-center">
+                                <div class="fs-4 mb-4 fst-italic text-white">폭염이 지속되는 요즘 무더위 쉼터에 대한 다양한 정보를 제공해</div>
+                                <div class="fs-4 mb-4 fst-italic text-white">노인, 어린이, 취약계층 모두가 여름을 시원하게 날 수 있도록</div>
+                                <div class="fs-4 mb-4 fst-italic text-white"> 도움을 주는 "그늘막"과 같은 존재가 되겠습니다.</div>
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <div class="fw-bold text-white">
+                                        Rest Area: 무더위 쉼터 정보 제공 서비스
+                                        <span class="fw-bold text-primary mx-1 text-white">/</span>
+                                        with 이수현, 이주영
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 가장 많은 추천을 받은 무더위 쉼터 -->
+            <section class="py-5">
+                <div class="container px-5 my-5">
+                    <div class="row gx-5 justify-content-center">
+                        <div class="col-lg-8 col-xl-6">
+                            <div class="text-center">
+                                <h2 class="fw-bolder">Best 무더위 쉼터</h2>
+                                <p class="lead fw-normal text-muted mb-5">사용자에게 많은 추천을 받은 쉼터들을 보여드립니다.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row gx-5">
+                        {% for info in info_list|slice:":9" %}
+                        <div class="col-lg-4 mb-5">
+                            <div class="card h-100 shadow border-0">
+                                {% for photo in info.photo_set.all|slice:":1" %}
+                                    <img class="card-img-top" src = "{{ photo.image.url }}" alt="" width="200" height="300"/>
+                                {% endfor %}
+
+                                <div class="card-body p-4">
+                                    <p class="card-text mb-0"> {{ info.restinfo }} </p>
+                                    <a class="text-decoration-none link-dark stretched-link" href="{% url 'main:detail' info.id %}">
+                                        클릭 시, 해당 쉼터로 이동합니다.
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </section>
+
+            <!--검색 창-->
+            <div class="py-5 bg-dark">
+                <div class="container px-5 my-5">
+                    <div class="row gx-5 justify-content-center">
+                        <div class="col-lg-10 col-xl-7">
+                            <div class="text-center">
+                                <div class="fs-4 mb-4 fst-italic text-white">검색하고 싶은 내용을 입력해주세요</div>
+                                <div class="input-group">
+                                    <input type="text" id="search_kw" class="form-control" value="{{ kw|default_if_none:'' }}">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" type="button" id="btn_search">검색</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!--검색 폼-->
+        <form id="searchForm" method="get" action="{% url 'main:search' %}">
+            <input type="hidden" id="kw" name="kw" value="{{ kw|default_if_none:'' }}">
+        </form>
+
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+    </body>
+</html>
+{% endblock %}
+
+{% block script %}
+<script type='text/javascript'>
+const btn_search = document.getElementById("btn_search");
+btn_search.addEventListener('click', function() {
+    document.getElementById('kw').value = document.getElementById('search_kw').value;
+    document.getElementById('searchForm').submit();
+});
+
+</script>
+{% endblock %}

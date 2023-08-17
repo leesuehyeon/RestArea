@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% block content %}
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <title>mapAPI</title>
+    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=63j21uhmqp"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <style>
+        #map {
+            width: 70%;
+            height: 720px;
+            float: left;
+            margin-right: 20px;
+        }
+
+        .container {
+            width: 26%;
+            height: 720px;
+            float: right;
+            margin-top: 30px;
+            padding: 20px;
+        }
+
+        .marker-info {
+            border-bottom: 1px solid #ccc;
+            margin: 10px;
+            padding: 10px;
+        }
+
+
+        .myLocaton{
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="map"></div>
+<div class="container">
+    <div class="left-panel">
+        <br>
+        <h3>쉼터 이름 :</h3>
+        <br>
+        <div id="markerNameInfo" class="marker-info"></div>
+
+        <h3>쉼터 주소 :</h3>
+        <br>
+        <div id="markerAddInfo" class="marker-info"></div>
+        <br>
+        <br>
+        <button id="mylatlng"  class="myLocaton" >내 주변 쉼터 찾기</button>
+        <h6 style="color: #6c757d;">버튼을 누르시면 내 위치 주변에 있는 무더위 쉼터를 확인하실 수 있습니다.</h6>
+    </div>
+</div>
+<div id="lat" style="display: none">
+    {% for re in rest %}
+        {{ re.latitude }},
+    {%endfor%}
+</div>
+<div id="long" style="display: none">
+    {% for re in rest %}
+        {{ re.longitude }},
+    {%endfor%}
+</div>
+<div id="name" style="display: none">
+    {% for re in rest %}
+        {{ re.name }},
+    {%endfor%}
+</div>
+<div id="loc" style="display: none">
+    {% for re in rest %}
+        {{ re.location }},
+    {%endfor%}
+</div>
+<script>
+    var mapOptions = {
+        center: new naver.maps.LatLng(37.663106, 127.071953),
+        zoom: 15,
+        zoomControl: true,
+        minZoom: 6,
+        scaleControl: false,
+        mapDataControl: false,
+        mapTypeId: naver.maps.MapTypeId.NORMAL
+    };
+
+    var map = new naver.maps.Map('map', mapOptions);
+
+    var list_lat = document.getElementById("lat").innerText.split(',');
+    var list_long = document.getElementById("long").innerText.split(',');
+    var list_name = document.getElementById("name").innerText.split(',');
+    var list_loc = document.getElementById("loc").innerText.split(',');
+
+    var coordinate = [];
+
+    for(var i = 0; i<list_lat.length;i++){
+        var latitude = list_lat[i];
+        var longitude = list_long[i];
+        coordinate.push(new naver.maps.LatLng(latitude,longitude));
+
+        var marker = new naver.maps.Marker({
+            map: map,
+            position: coordinate[i],
+            title: list_name[i] + ' - ' + list_loc[i]
+        });
+
+       (function(marker) {
+        naver.maps.Event.addListener(marker, "mouseover", function(){
+            var title = marker.getOptions('title');
+            var part = title.split('-');
+
+            var markerNameInfo = document.getElementById('markerNameInfo');
+            markerNameInfo.innerHTML = part[0];
+
+            var markerAddInfo = document.getElementById('markerAddInfo');
+            markerAddInfo.innerHTML = part[1];
+        });
+    })(marker);
+
+
+    }
+
+    //현재위치 담을 변수
+    var currentLoc="";
+
+    //사용자 정의 컨트롤(현재위치로 이동)
+    naver.maps.Event.once(map,'init_stylemap',function(){
+        var cstmCtrl = new naver.maps.CustomControl(document.getElementById("mylatlng"));
+
+        //현재위치 이동 버튼 맵 위에 뿌리기
+        cstmCtrl.setMap(map);
+
+        naver.maps.Event.addDOMListener(cstmCtrl.getElement(),'click',function () {
+            if (currentLoc){
+                //현재 위치 얻은거 중심으로
+                map.setCenter(currentLoc);
+                map.setZoom(17);
+            } else {
+                alert("위치 액세스가 거부되었습니다. 위치 액세스를 허용해주세요.");
+            }
+        });
+    });
+
+    //현재 위치 좌표 가져오는거 성공하면
+    var onSuccessGeolocation = function (position) {
+        //현재 위치 세팅
+        currentLoc = new naver.maps.LatLng(position.coords.latitude,position.coords.longitude);
+        //현재 위치를 센터로 세팅하기
+        map.setCenter(currentLoc);
+        //지도 줌 레벨도 바꿈
+        map.setZoom(17);
+        new naver.maps.Marker({
+            position : currentLoc,
+            map:map
+        })
+    }
+
+    var onErrorGeolocation = function(){
+        console.log("현재 위치를 가져오는데 실패하였습니다.");
+    }
+
+    if (navigator.geolocation) {
+        document.getElementById("mylatlng").addEventListener('click', function() {
+            navigator.geolocation.getCurrentPosition(onSuccessGeolocation, onErrorGeolocation);
+        });
+    } else {
+        console.log("Geolocation Not Supported Required");
+    }
+</script>
+</body>
+</html>
+{% endblock %}
