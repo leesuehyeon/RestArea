@@ -9,8 +9,8 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 
 #로깅 설정
-# import logging
-# logger = logging.getLogger('RestArea')
+import logging
+logger = logging.getLogger('RestArea')
 
 #업로드 하는 파일 개수, 크기, 확장자 제한
 FILE_COUNT_LIMIT = 4 #4개
@@ -23,7 +23,7 @@ WHITE_LIST_EXT = {
 } #이미지 확장자
 
 def index(request): #쉼터 review 목록
-    #logger.info("INFO 레벨로 출력") #로깅
+    logger.info("INFO 레벨로 출력") #로깅
     page = request.GET.get('page', '1') #페이지
     kw = request.GET.get('kw', '') #검색어
     review_list = Review.objects.order_by('-date')
