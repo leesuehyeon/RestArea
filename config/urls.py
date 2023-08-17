@@ -32,6 +32,7 @@ urlpatterns = [
     path('review/', include('review.urls')),
     path('common/', include('common.urls')),
     path('map/', include('map.urls')),
+    path('check/',include('check.urls')),
     path('', include('main.urls')),
     path('', views.index, name='index'),
     url(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}),
